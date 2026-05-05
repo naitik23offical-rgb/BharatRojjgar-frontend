@@ -5,6 +5,8 @@ import AboutUs from './pages/AboutUs'
 import UserProfile from './pages/UserProfile'
 import UpdateProfile from './pages/UpdateProfile'
 import FindJobs from './pages/FindJobs'
+import AdminPanel from './pages/AdminPanel'
+import { ContentProvider } from './context/ContentContext'
 
 function App() {
   const [currentPage, setCurrentPage] = useState(() => {
@@ -78,14 +80,17 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      {currentPage === 'home' && <WebsiteHome {...pageProps} />}
-      {currentPage === 'signup' && <SignUp {...pageProps} />}
-      {currentPage === 'about' && <AboutUs {...pageProps} />}
-      {currentPage === 'profile' && <UserProfile {...pageProps} />}
-      {currentPage === 'edit-profile' && <UpdateProfile {...pageProps} />}
-      {currentPage === 'find-jobs' && <FindJobs {...pageProps} />}
-    </div>
+    <ContentProvider>
+      <div className="app-container">
+        {currentPage === 'home' && <WebsiteHome {...pageProps} />}
+        {currentPage === 'signup' && <SignUp {...pageProps} />}
+        {currentPage === 'about' && <AboutUs {...pageProps} />}
+        {currentPage === 'profile' && <UserProfile {...pageProps} />}
+        {currentPage === 'edit-profile' && <UpdateProfile {...pageProps} />}
+        {currentPage === 'find-jobs' && <FindJobs {...pageProps} />}
+        {currentPage === 'admin' && <AdminPanel {...pageProps} />}
+      </div>
+    </ContentProvider>
   )
 }
 

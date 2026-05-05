@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { MapPin, Globe } from 'lucide-react';
+import { useContent } from '../context/ContentContext';
 import './HeroSection.css';
 
 const HeroSection = ({ onNavigate, userLocation, isLocating, detectLocation }) => {
+  const { getContent } = useContent();
   
   useEffect(() => {
     // Re-initialize Google Translate if the component remounts
@@ -45,21 +47,21 @@ const HeroSection = ({ onNavigate, userLocation, isLocating, detectLocation }) =
         <div className="carousel-image-container">
           <img src="/hero-image.png" alt="JCB Backhoe Loader" className="hero-image" />
           <div className="carousel-overlay">
-            <h2 className="hero-title animate-fade-in">Find Your Next Job or Hire Skilled Labor</h2>
+            <h2 className="hero-title animate-fade-in">{getContent('hero', 'headline', 'Find Your Next Job or Hire Skilled Labor')}</h2>
             <div className="hero-buttons">
               <button 
                 className="btn btn-primary cta-btn animate-fade-in" 
                 style={{ animationDelay: '0.2s' }}
                 onClick={() => onNavigate && onNavigate('find-jobs')}
               >
-                Find Jobs
+                {getContent('hero', 'findJobsBtn', 'Find Jobs')}
               </button>
               <button 
                 className="btn btn-outline cta-btn-outline animate-fade-in" 
                 style={{ animationDelay: '0.3s' }}
                 onClick={() => onNavigate && onNavigate('signup')}
               >
-                Register
+                {getContent('hero', 'registerBtn', 'Register')}
               </button>
             </div>
           </div>

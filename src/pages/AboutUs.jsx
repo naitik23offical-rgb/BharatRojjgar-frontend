@@ -2,9 +2,11 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Headphones, User as UserIcon, Building } from 'lucide-react';
+import { useContent } from '../context/ContentContext';
 import './AboutUs.css';
 
 const AboutUs = ({ onNavigate, searchQuery, onSearch }) => {
+  const { getContent } = useContent();
   return (
     <div className="app-container">
       <Header onNavigate={onNavigate} searchQuery={searchQuery} onSearch={onSearch} />
@@ -25,12 +27,12 @@ const AboutUs = ({ onNavigate, searchQuery, onSearch }) => {
             <section className="director-section">
               <div className="director-photo-placeholder">
                 <UserIcon size={64} className="director-icon" />
-                <span>Director Photo</span>
+                <span>{getContent('about', 'directorPhotoLabel', 'Director Photo')}</span>
               </div>
               <div className="director-info">
-                <h2>Our Director</h2>
+                <h2>{getContent('about', 'directorTitle', 'Our Director')}</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+                  {getContent('about', 'directorBio', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.')}
                 </p>
               </div>
             </section>
@@ -40,12 +42,12 @@ const AboutUs = ({ onNavigate, searchQuery, onSearch }) => {
             {/* Company Section */}
             <section className="company-section">
               <div className="company-info">
-                <h2>About Bharat Rojjgar</h2>
+                <h2>{getContent('about', 'companyTitle', 'About Bharat Rojjgar')}</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.
+                  {getContent('about', 'companyDesc1', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.')}
                 </p>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                  {getContent('about', 'companyDesc2', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.')}
                 </p>
               </div>
               
