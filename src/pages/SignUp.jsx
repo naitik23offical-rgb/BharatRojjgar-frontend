@@ -20,19 +20,56 @@ const SignUp = ({ onNavigate, searchQuery, onSearch }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSendOtp = (e) => {
+  const handleSendOtp = async (e) => {
     e.preventDefault();
-    // Simulate API call to send OTP
-    console.log('Sending OTP to', formData.mobile);
-    setStep(2);
+    try {
+      const response = await fetch('http://localhost:8080/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mobileNumber: formData.mobile })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setStep(2);
+      } else {
+        alert(data.message || "Failed to send OTP");
+      }
+    } catch (error) {
+      console.error("OTP Error", error);
+      alert("Error connecting to server");
+    }
   };
 
-  const handleVerifyOtp = (e) => {
+  const handleVerifyOtp = async (e) => {
     e.preventDefault();
-    // Simulate API call to verify OTP
-    console.log('Verifying OTP', otp, 'for', formData.mobile);
-    console.log('User registered!');
-    alert('Registration Successful!');
+    try {
+      const response = await fetch('http://localhost:8080/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          mobileNumber: formData.mobile,
+          password: formData.password,
+          otp: otp,
+          roles: ["worker"],
+          jobCategory: formData.machine,
+          experience: "Entry Level", // Default or add to form
+          city: formData.location,
+          latitude: 0.0,
+          longitude: 0.0
+        })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert('Registration Successful! You can now log in.');
+        onNavigate('home');
+      } else {
+        alert(data.message || "Registration failed");
+      }
+    } catch (error) {
+      console.error("Register Error", error);
+      alert("Error connecting to server");
+    }
   };
 
   return (
@@ -58,12 +95,17 @@ const SignUp = ({ onNavigate, searchQuery, onSearch }) => {
                       <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Full Name" className="form-input" required />
                     </div>
 
-                      <div className="form-row">
-                        <div className="form-group">
-                          <label>Mobile</label>
-                          <input type="tel" name="mobile" value={formData.mobile} onChange={handleInputChange} placeholder="Mobile Number" className="form-input" required />
-                        </div>
+                    <div className="form-row">
+                      <div className="form-group">
+                        <label>Mobile</label>
+                        <input type="tel" name="mobile" value={formData.mobile} onChange={handleInputChange} placeholder="Mobile Number" className="form-input" required />
                       </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label>Password</label>
+                      <input type="password" name="password" value={formData.password} onChange={handleInputChange} placeholder="Create Password" className="form-input" required />
+                    </div>
 
                     <div className="form-group">
                       <label>Address</label>
@@ -71,13 +113,13 @@ const SignUp = ({ onNavigate, searchQuery, onSearch }) => {
                     </div>
 
                     <div className="form-group">
-                      <label>Where you can work</label>
-                      <input type="text" name="location" value={formData.location} onChange={handleInputChange} placeholder="State / District" className="form-input" />
+                      <label>City / Location</label>
+                      <input type="text" name="location" value={formData.location} onChange={handleInputChange} placeholder="City Name" className="form-input" />
                     </div>
 
                     <div className="form-group">
-                      <label>Which machine you can operate?</label>
-                      <input type="text" name="machine" value={formData.machine} onChange={handleInputChange} placeholder="E.g., JCB, Electrician, General Labour" className="form-input" />
+                      <label>What machine/work do you do?</label>
+                      <input type="text" name="machine" value={formData.machine} onChange={handleInputChange} placeholder="E.g., JCB, Electrician" className="form-input" />
                     </div>
                   </div>
 
@@ -122,6 +164,7 @@ const SignUp = ({ onNavigate, searchQuery, onSearch }) => {
                   </div>
                   <h3 className="otp-title">Enter Verification Code</h3>
                   <p className="otp-message">Sent to +91 {formData.mobile}</p>
+                  <p className="otp-hint" style={{fontSize: '0.8rem', color: '#666', marginBottom: '1rem'}}>(Check Backend Console for OTP)</p>
                   
                   <div className="form-group otp-input-group">
                     <input 

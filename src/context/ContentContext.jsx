@@ -28,16 +28,24 @@ export const ContentProvider = ({ children }) => {
     fetchContent();
   }, []);
 
-  // Helper function to get content safely
+  // Helper function to get text content safely
   const getContent = (section, key, fallback = '') => {
-    if (content[section] && content[section][key]) {
-      return content[section][key];
+    if (content[section] && content[section][key] && content[section][key].value) {
+      return content[section][key].value;
+    }
+    return fallback;
+  };
+
+  // Helper function to get image/media URL safely
+  const getMedia = (section, key, fallback = '') => {
+    if (content[section] && content[section][key] && content[section][key].imageUrl) {
+      return content[section][key].imageUrl;
     }
     return fallback;
   };
 
   return (
-    <ContentContext.Provider value={{ content, getContent, fetchContent, loading }}>
+    <ContentContext.Provider value={{ content, getContent, getMedia, fetchContent, loading }}>
       {children}
     </ContentContext.Provider>
   );
