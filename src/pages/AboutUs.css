@@ -1,0 +1,164 @@
+.about-main {
+  padding: 3rem 0;
+  min-height: calc(100vh - 80px);
+  background-color: var(--color-bg);
+}
+
+.about-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.about-title {
+  color: var(--color-primary);
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.customer-care-btn {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  border-radius: 999px;
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.customer-care-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.about-content {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  box-shadow: var(--shadow-md);
+}
+
+.director-section {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.director-photo-placeholder {
+  width: 300px;
+  height: 350px;
+  background-color: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.director-icon {
+  margin-bottom: 1rem;
+  color: #cbd5e1;
+}
+
+.director-info h2 {
+  color: var(--color-accent);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.director-info p {
+  color: var(--color-text-main);
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.about-divider {
+  border: none;
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 3rem 0;
+}
+
+.company-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.company-info h2 {
+  color: var(--color-accent);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.company-info p {
+  color: var(--color-text-main);
+  line-height: 1.8;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.company-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.photo-box {
+  height: 150px;
+  background-color: #f1f5f9;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #94a3b8;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.photo-box:hover {
+  background-color: #e2e8f0;
+  color: var(--color-primary);
+}
+
+@media (max-width: 900px) {
+  .director-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .director-photo-placeholder {
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
+  }
+  
+  .director-info {
+    text-align: center;
+  }
+  
+  .company-info {
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-header-section {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .about-content {
+    padding: 2rem 1.5rem;
+  }
+}
